@@ -1,6 +1,6 @@
-import React from 'react'
-import { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import axios from "axios"
 export default function Signup() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -13,6 +13,10 @@ export default function Signup() {
             setErrMsg("Please enter both email and password");
             return;
         }
+
+        axios.post("http://localhost:3001/signup", {email, password})
+        .then(result => console.log(result))
+        .catch(error => console.log(error))
 
         console.log("Email: ", email);
         console.log("Password: ", password);
