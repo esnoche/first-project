@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from "axios"
+import { error } from 'console';
 export default function Signup() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,10 +17,18 @@ export default function Signup() {
 
         axios.post("http://localhost:3001/signup", {email, password})
         .then(result => console.log(result))
-        .catch(error => console.log(error))
+        .catch(error => {
+            if(error.response && error.response.data && error.response.data.error) {
+                setErrMsg(error.response.data.error);
+            }else {
+                console.log(error);
+            }
+        })
+        // .catch(error => console.log(error))
 
         console.log("Email: ", email);
         console.log("Password: ", password);
+        // console.log("passLength: ", password.length);
 
         setEmail("");
         setPassword("");

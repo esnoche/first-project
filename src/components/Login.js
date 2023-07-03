@@ -24,7 +24,7 @@ export default function Signup() {
     }
     return (
         <div>
-            <h1>Signup Page</h1>
+            <h1>Login Page</h1>
             <form onSubmit={handleLogin}>
                 {errMsg && <p>{errMsg}</p>}
                 <label>Email:</label>
