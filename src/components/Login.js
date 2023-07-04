@@ -1,10 +1,13 @@
+import axios from 'axios';
 import React from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 export default function Signup() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errMsg, setErrMsg] = useState("");
+    const [loggedIn, setLoggedIn] = useState(false);
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -14,6 +17,17 @@ export default function Signup() {
             return;
         }
 
+        axios.post("http://localhost:3001/login", {email, password})
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+            setErrMsg("invalid email or password");
+        });
+
+        setLoggedIn(true);
+
         console.log("Email: ", email);
         console.log("Password: ", password);
 
@@ -21,6 +35,10 @@ export default function Signup() {
         setPassword("");
         setErrMsg("");
 
+    }
+
+    if(loggedIn) {
+        navigate("/landing");
     }
     return (
         <div>
