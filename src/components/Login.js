@@ -20,13 +20,13 @@ export default function Signup() {
         axios.post("http://localhost:3001/login", {email, password})
         .then((response) => {
             console.log(response.data);
+            setLoggedIn(true);
         })
         .catch((error) => {
             console.log(error);
             setErrMsg("invalid email or password");
         });
 
-        setLoggedIn(true);
 
         console.log("Email: ", email);
         console.log("Password: ", password);
